@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  body        String
+  image_url   String?  // El PDF dice guardar solo la URL [cite: 117]
+  author      String
+  date        DateTime @default(now()) // Fecha de creación automática
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String // Guardaremos el hash, no la contraseña real
+  name     String
+  role     String @default("USER") // "ADMIN" o "USER"
+}

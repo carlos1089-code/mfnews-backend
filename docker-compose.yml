@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Base de datos
+  postgres:
+    image: postgres:13
+    container_name: mfnews_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: contraseña123
+      POSTGRES_DB: mfnews_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Backend NestJS
+  backend:
+    build: .
+    container_name: mfnews_backend
+    ports:
+      - '3000:3000'
+    environment:
+      # OJO AQUÍ: "postgres" es el nombre del servicio de arriba, no localhost
+      DATABASE_URL: "postgresql://admin:contraseña123@postgres:5432/mfnews_db?schema=public"
+    depends_on:
+      - postgres
+
+  # 3. FRONTEND (React) - Se construye buscando en la carpeta de al lado
+  frontend:
+    build:
+      context: ../mfnews-frontend # 👈 AQUÍ ESTÁ EL TRUCO
+      dockerfile: Dockerfile
+    container_name: mfnews_frontend
+    ports:
+      - '5173:5173'
+    volumes:
+      - ../mfnews-frontend:/app
+      - /app/node_modules
+    # React necesita saber dónde está la API (usa localhost porque corre en tu navegador)
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+
+volumes:
+  postgres_data:
