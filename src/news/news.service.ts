@@ -16,17 +16,20 @@ export class NewsService {
 
   // --- BUSCAR (Filtro de Texto Simple) ---
   async findAll(search?: string) {
-    // Configuración de filtro dinámico
+    // 👇 ESPÍA 1: ¿Llega el texto?
+    console.log("🔎 BUSCANDO EN SERVICIO:", search);
+
     const whereConfig = search
       ? {
           OR: [
-            // Busca si el título CONTIENE el texto (ignorando mayúsculas)
             { title: { contains: search, mode: 'insensitive' as const } },
-            // O si el autor lo contiene
             { author: { contains: search, mode: 'insensitive' as const } },
           ],
         }
       : {};
+
+    // 👇 ESPÍA 2: ¿Cómo queda el filtro?
+    console.log("⚙️ FILTRO PRISMA:", JSON.stringify(whereConfig));
 
     return await this.prisma.news.findMany({
       where: whereConfig,

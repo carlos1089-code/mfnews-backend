@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
     // Configuración del Rate Limiting
     ThrottlerModule.forRoot([{
       ttl: 60000, 
-      limit: 10, 
+      limit: 1000, 
     }]),
   ],
   controllers: [],
