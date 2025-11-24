@@ -55,3 +55,6 @@ docker-compose up -d --build
 
 # Verificar logs
 docker-compose logs -f backend
+
+# Ejecutar Seed dentro del contenedor
+docker-compose exec backend npx prisma db seed
