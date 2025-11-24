@@ -6,18 +6,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // 1. CONFIGURACIÓN DE SWAGGER (Se queda en la raíz: /docs)
   const config = new DocumentBuilder()
     .setTitle('News API')
     .setDescription('Documentación de la API')
     .setVersion('1.0')
-    .addBearerAuth() // Recomendado para probar rutas con token
+    .addBearerAuth() 
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document); 
 
-  // 2. PREFIJO GLOBAL (Mueve la API a /api, pero respeta /docs)
+  
   app.setGlobalPrefix('api'); 
+  //! Esto es genial porque en los otros archivos (controllers por ej) solo pones la ruta sin el /api
   
   app.useGlobalPipes(
     new ValidationPipe({

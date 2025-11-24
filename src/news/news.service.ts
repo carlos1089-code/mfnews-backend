@@ -6,8 +6,7 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class NewsService {
   constructor(private prisma: PrismaService) {}
-
-  // --- CREAR (Normal) ---
+  // --- CREAR ---
   async create(createNewsDto: CreateNewsDto) {
     return await this.prisma.news.create({
       data: createNewsDto,
@@ -16,9 +15,6 @@ export class NewsService {
 
   // --- BUSCAR (Filtro de Texto Simple) ---
   async findAll(search?: string) {
-    // 👇 ESPÍA 1: ¿Llega el texto?
-    console.log("🔎 BUSCANDO EN SERVICIO:", search);
-
     const whereConfig = search
       ? {
           OR: [
@@ -27,9 +23,6 @@ export class NewsService {
           ],
         }
       : {};
-
-    // 👇 ESPÍA 2: ¿Cómo queda el filtro?
-    console.log("⚙️ FILTRO PRISMA:", JSON.stringify(whereConfig));
 
     return await this.prisma.news.findMany({
       where: whereConfig,

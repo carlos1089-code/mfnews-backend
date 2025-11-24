@@ -1,9 +1,10 @@
-// 1. AGREGAR 'Query' a los imports
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto'; 
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+
+//! Este arhcihvo es basciamente donde se define las rutas y se conecta con el servicio
 
 @ApiTags('News')
 @Controller('news')
@@ -18,13 +19,12 @@ export class NewsController {
     return this.newsService.create(createNewsDto);
   }
 
-  // --- LISTAR TODAS (CON BÚSQUEDA) ---
+ 
   @Get()
   @ApiOperation({ summary: 'Obtener todas las noticias' })
-  // 2. AGREGAR ESTO: @Query('search')
   findAll(@Query('search') search?: string) {
-    // Ahora sí le pasamos el texto al servicio
-    return this.newsService.findAll(search);
+    
+       return this.newsService.findAll(search);
   }
 
   @Get(':id')
