@@ -6,15 +6,12 @@ import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { NewsModule } from './news/news.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { AiModule } from './ai/ai.module'; // 👈 Importamos el Módulo Nuevo
 
 @Module({
   imports: [
     PrismaModule, 
     NewsModule,
-    AuthModule,
-    AiModule, // 👈 Cargamos el módulo de IA (que ya es Global)
-    
+    AuthModule,   
     // Configuración del Rate Limiting
     ThrottlerModule.forRoot([{
       ttl: 60000, 

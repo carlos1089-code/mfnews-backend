@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  # Base de datos
+  # Base de datos (Volvemos a Postgres estándar, ligero y rápido)
   db:
-    image: pgvector/pgvector:pg16
+    image: postgres:16
     restart: always
     container_name: mfnews_db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: contraseña123
-      POSTGRES_DB: mfnews  # La base se llama "mfnews"
+      POSTGRES_DB: mfnews
     ports:
       - "5432:5432"
     volumes:
@@ -22,10 +22,8 @@ services:
     ports:
       - '3000:3000'
     environment:
-   
       DATABASE_URL: "postgresql://admin:contraseña123@db:5432/mfnews?schema=public"
     depends_on:
-      # ### CORREGIDO 3: Debe coincidir con el nombre del servicio de arriba
       - db
 
   # Frontend (React)
