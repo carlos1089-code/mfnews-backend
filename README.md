@@ -58,3 +58,26 @@ docker-compose logs -f backend
 
 # Ejecutar Seed dentro del contenedor
 docker-compose exec backend npx prisma db seed
+
+## 🧪 Pruebas Unitarias y de Integración
+
+El proyecto utiliza **Jest** para ejecutar las pruebas. Para garantizar que los tests se ejecuten contra el ambiente correcto (Node/Prisma), deben ejecutarse dentro del contenedor `backend`.
+
+### Comandos de Prueba
+
+| Comando | Descripción |
+| :--- | :--- |
+| `npm run test` | Ejecuta las pruebas unitarias y de integración (.spec.ts) de la aplicación. |
+| `npm run test:watch` | Ejecuta las pruebas en modo 'observador' (se vuelven a ejecutar al guardar cambios). |
+| `npm run test:cov` | Ejecuta las pruebas y genera un reporte detallado de cobertura de código. |
+
+### Ejecución con Docker
+
+Para correr cualquier prueba, usa la sintaxis `docker-compose exec` seguida del comando:
+
+```bash
+# Ejecutar todos los tests
+docker-compose exec backend npm run test
+
+# Generar reporte de cobertura (Ideal para el revisor)
+docker-compose exec backend npm run test:cov
