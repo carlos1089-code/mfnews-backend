@@ -2,15 +2,16 @@ version: '3.8'
 
 services:
   # Base de datos
-  postgres:
-    image: postgres:13
+  db:
+    image: pgvector/pgvector:pg16
+    restart: always
     container_name: mfnews_db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: contraseña123
-      POSTGRES_DB: mfnews_db
+      POSTGRES_DB: mfnews  # La base se llama "mfnews"
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -21,15 +22,16 @@ services:
     ports:
       - '3000:3000'
     environment:
-      # OJO AQUÍ: "postgres" es el nombre del servicio de arriba, no localhost
-      DATABASE_URL: "postgresql://admin:contraseña123@postgres:5432/mfnews_db?schema=public"
+   
+      DATABASE_URL: "postgresql://admin:contraseña123@db:5432/mfnews?schema=public"
     depends_on:
-      - postgres
+      # ### CORREGIDO 3: Debe coincidir con el nombre del servicio de arriba
+      - db
 
-  # 3. FRONTEND (React) - Se construye buscando en la carpeta de al lado
+  # Frontend (React)
   frontend:
     build:
-      context: ../mfnews-frontend # 👈 AQUÍ ESTÁ EL TRUCO
+      context: ../mfnews-frontend
       dockerfile: Dockerfile
     container_name: mfnews_frontend
     ports:
@@ -37,7 +39,6 @@ services:
     volumes:
       - ../mfnews-frontend:/app
       - /app/node_modules
-    # React necesita saber dónde está la API (usa localhost porque corre en tu navegador)
     environment:
       - VITE_API_URL=http://localhost:3000/api
 
