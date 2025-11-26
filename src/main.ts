@@ -21,7 +21,8 @@ async function bootstrap() {
     .setTitle('News API')
     .setDescription('Documentación de la API')
     .setVersion('1.0')
-    .addServer('http://localhost:3000/api') // 👈 AQUI VA
+    .addServer('http://localhost:3000/api')
+    // 👇 CAMBIO IMPORTANTE AQUÍ
     .addBearerAuth(
       {
         type: 'http',
@@ -31,13 +32,13 @@ async function bootstrap() {
         description: 'Ingresa tu token JWT',
         in: 'header',
       },
-      'access-token',
+      // ❌ AQUÍ BORRÉ 'access-token'. Al no poner nada, se llama 'bearer' por defecto.
     )
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
     deepScanRoutes: true,
-    ignoreGlobalPrefix: false, // 👈 NECESARIO para que Swagger incluya /api
+    ignoreGlobalPrefix: false,
   });
 
   SwaggerModule.setup('docs', app, document);
