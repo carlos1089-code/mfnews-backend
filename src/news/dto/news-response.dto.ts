@@ -1,43 +1,46 @@
-import { IsString, IsNotEmpty, IsUrl, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateNewsDto {
+export class NewsResponseDto {
+  @ApiProperty({
+    description: 'ID único de la noticia',
+    example: 1,
+  })
+  id: number;
+
   @ApiProperty({
     description: 'El titular de la noticia',
-    example: 'SpaceX lanza un nuevo cohete - Actualizado',
-    required: false,
+    example: 'SpaceX lanza un nuevo cohete',
   })
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  title?: string;
+  title: string;
 
   @ApiProperty({
     description: 'El contenido completo de la noticia',
     example: 'Ayer por la tarde, la compañía aeroespacial logró...',
-    required: false,
   })
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  body?: string;
+  body: string;
 
   @ApiProperty({
     description: 'Nombre del redactor',
     example: 'Carlos Nayi',
-    required: false,
   })
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  author?: string;
+  author: string;
 
   @ApiProperty({
     description: 'URL de la imagen de portada',
     example: 'https://picsum.photos/200/300',
     required: false,
   })
-  @IsUrl()
-  @IsOptional()
   image_url?: string;
+
+  @ApiProperty({
+    description: 'Fecha de creación',
+    example: '2025-01-15T10:30:00.000Z',
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    description: 'Fecha de última actualización',
+    example: '2025-01-15T10:30:00.000Z',
+  })
+  updatedAt: Date;
 }

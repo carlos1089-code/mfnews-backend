@@ -1,17 +1,47 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { RegisterDto } from './dto/create-auth.dto';
+import { LoginDto } from './dto/login-auth.dto';
+import { AuthResponseDto } from './dto/auth-response.dto';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody } from '@nestjs/swagger';
+import { ApiExtraModels } from '@nestjs/swagger';
 
-@Controller('auth') // Ruta base: /api/auth
+@ApiTags('Auth')
+@ApiExtraModels(RegisterDto, LoginDto, AuthResponseDto)
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  register(@Body() body: { name: string; email: string; password: string }) {
-    return this.authService.register(body);
+  @ApiOperation({ summary: 'Registrar un nuevo usuario' })
+  @ApiBody({ type: RegisterDto })
+  @ApiResponse({
+    status: 201,
+    description: 'Usuario registrado exitosamente.',
+    type: AuthResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o el email ya está registrado.',
+  })
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(registerDto);
   }
 
   @Post('login')
-  login(@Body() body: { email: string; password: string }) {
-    return this.authService.login(body);
+  @ApiOperation({ summary: 'Iniciar sesión' })
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Inicio de sesión exitoso.',
+    type: AuthResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Credenciales inválidas.',
+  })
+  login(@Body() loginDto: LoginDto) {
+    return this.authService.login(loginDto);
   }
 }

@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: contraseña123
       POSTGRES_DB: mfnews
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -22,7 +22,7 @@ services:
     ports:
       - '3000:3000'
     environment:
-      DATABASE_URL: "postgresql://admin:contraseña123@db:5432/mfnews?schema=public"
+      DATABASE_URL: 'postgresql://admin:contraseña123@db:5432/mfnews?schema=public'
     depends_on:
       - db
 
