@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Base de datos (Volvemos a Postgres estándar, ligero y rápido)
+  # 1. Base de datos
   db:
     image: postgres:16
     restart: always
@@ -15,7 +15,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # Backend NestJS
+  # 2. Backend NestJS (Fíjate que está indentado debajo de services)
   backend:
     build: .
     container_name: mfnews_backend
@@ -25,8 +25,13 @@ services:
       DATABASE_URL: 'postgresql://admin:contraseña123@db:5432/mfnews?schema=public'
     depends_on:
       - db
+    # Configuración para Hot Reload (Desarrollo)
+    volumes:
+      - .:/app # Sincroniza tu carpeta actual con /app en el contenedor
+      - /app/node_modules # Protege la carpeta node_modules interna
+    command: npm run start:dev # Sobreescribe el comando de producción
 
-  # Frontend (React)
+  # 3. Frontend React
   frontend:
     build:
       context: ../mfnews-frontend

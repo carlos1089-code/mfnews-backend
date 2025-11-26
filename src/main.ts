@@ -21,6 +21,7 @@ async function bootstrap() {
     .setTitle('News API')
     .setDescription('Documentación de la API')
     .setVersion('1.0')
+    .addServer('http://localhost:3000/api') // 👈 AQUI VA
     .addBearerAuth(
       {
         type: 'http',
@@ -34,11 +35,14 @@ async function bootstrap() {
     )
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {
+    deepScanRoutes: true,
+    ignoreGlobalPrefix: false, // 👈 NECESARIO para que Swagger incluya /api
+  });
+
   SwaggerModule.setup('docs', app, document);
 
-  // ✅ Aplica el prefijo DESPUÉS de configurar Swagger
-  // Y excluye explícitamente la ruta de docs
+  // ⭐ El prefijo global sigue igual
   app.setGlobalPrefix('api', {
     exclude: ['docs'],
   });
