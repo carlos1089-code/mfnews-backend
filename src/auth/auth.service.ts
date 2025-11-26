@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
@@ -16,7 +20,8 @@ export class AuthService {
     const existingUser = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
-    if (existingUser) throw new BadRequestException('El email ya está registrado');
+    if (existingUser)
+      throw new BadRequestException('El email ya está registrado');
 
     // 2. Encriptar contraseña
     const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -35,11 +40,19 @@ export class AuthService {
     });
 
     // 4. Generar Token
-    const token = await this.jwtService.signAsync({ id: user.id, role: user.role });
+    const token = await this.jwtService.signAsync({
+      id: user.id,
+      role: user.role,
+    });
 
     return {
       message: 'Usuario creado',
-      user: { id: user.id, name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
       token,
     };
   }
@@ -57,10 +70,18 @@ export class AuthService {
     if (!isMatch) throw new UnauthorizedException('Credenciales inválidas');
 
     // 3. Generar Token
-    const token = await this.jwtService.signAsync({ id: user.id, role: user.role });
+    const token = await this.jwtService.signAsync({
+      id: user.id,
+      role: user.role,
+    });
 
     return {
-      user: { id: user.id, name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
       token,
     };
   }

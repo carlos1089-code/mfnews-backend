@@ -24,4 +24,5 @@ model User {
   password String // Guardaremos el hash, no la contraseña real
   name     String
   role     String @default("USER") // "ADMIN" o "USER"
+
 }

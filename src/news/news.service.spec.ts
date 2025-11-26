@@ -18,11 +18,11 @@ describe('NewsService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        NewsService,  // El servicio real está OK aquí
-        { 
+        NewsService,
+        {
           provide: PrismaService,
-          useValue: mockPrismaService
-        }, 
+          useValue: mockPrismaService,
+        },
       ],
     }).compile();
 

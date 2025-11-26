@@ -17,9 +17,9 @@ describe('NewsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NewsController],
       providers: [
-        { 
+        {
           provide: NewsService,
-          useValue: mockNewsService  // Solo el mock, sin el servicio real
+          useValue: mockNewsService, // Solo el mock, sin el servicio real
         },
       ],
     }).compile();

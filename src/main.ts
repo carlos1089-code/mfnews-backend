@@ -10,16 +10,12 @@ async function bootstrap() {
     .setTitle('News API')
     .setDescription('Documentación de la API')
     .setVersion('1.0')
-    .addBearerAuth() 
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document); 
-
-  
-  app.setGlobalPrefix('api'); 
-  //! Esto es genial porque en los otros archivos (controllers por ej) solo pones la ruta sin el /api
-  
+  SwaggerModule.setup('docs', app, document);
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -28,7 +24,7 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors(); 
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

@@ -9,14 +9,15 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    PrismaModule, 
+    PrismaModule,
     NewsModule,
-    AuthModule,   
-    // Configuración del Rate Limiting
-    ThrottlerModule.forRoot([{
-      ttl: 60000, 
-      limit: 1000, 
-    }]),
+    AuthModule,
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 1000,
+      },
+    ]),
   ],
   controllers: [],
   providers: [
@@ -24,7 +25,6 @@ import { AuthModule } from './auth/auth.module';
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
-    
   ],
 })
 export class AppModule {}
