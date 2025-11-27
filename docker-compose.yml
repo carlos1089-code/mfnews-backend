@@ -22,6 +22,7 @@ services:
     ports:
       - '3000:3000'
     environment:
+      JWT_SECRET: ${JWT_SECRET}
       DATABASE_URL: 'postgresql://admin:contraseña123@db:5432/mfnews?schema=public'
     depends_on:
       - db

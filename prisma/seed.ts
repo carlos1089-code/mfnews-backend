@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Iniciando Seeding (Modo: Picsum Photos)...');
 
-  // 1. Limpieza de tablas (primero News para no romper integridad referencial, luego User)
   try {
     await prisma.news.deleteMany();
     await prisma.user.deleteMany();
@@ -16,8 +15,6 @@ async function main() {
     );
   }
 
-  // 2. Crear Usuarios (Admin y User)
-  // Nota: La contraseña es un hash de ejemplo. En producción usa bcrypt.
   const passwordHash =
     '$2b$10$EpIxt.H4c/w/mF0v5WzRxe.j6Ff/w/mF0v5WzRxe.j6Ff9Z2Z2';
 
@@ -39,13 +36,11 @@ async function main() {
   });
   console.log('👤 Usuarios creados correctamente.');
 
-  // 3. Datos de Noticias (Usando Picsum con ?random para evitar caché y errores)
-  // Dimensiones: 800x600 para que carguen rápido y se vean bien en tarjetas.
   const newsData = [
     {
       title: 'SpaceX logra un aterrizaje histórico',
       body: 'En un hito sin precedentes para la ingeniería aeroespacial, la compañía logró capturar el propulsor en el aire utilizando los brazos mecánicos de la torre de lanzamiento.',
-      image_url: 'https://picsum.photos/800/600?random=1', // Random 1
+      image_url: 'https://picsum.photos/800/600?random=1',
       author: 'Carlos Nayi',
       date: new Date(),
     },
@@ -54,21 +49,21 @@ async function main() {
       body: 'Tras conocerse el último índice de inflación, la entidad monetaria ha decidido ajustar la tasa de referencia. Los analistas advierten sobre el impacto en el consumo.',
       image_url: 'https://picsum.photos/800/600?random=2',
       author: 'Ana Economía',
-      date: new Date(Date.now() - 86400000), // Ayer
+      date: new Date(Date.now() - 86400000),
     },
     {
       title: 'Final electrizante en el torneo local',
       body: 'El partido terminó con goles en los últimos minutos. La polémica del VAR fue la protagonista de la noche, anulando un gol decisivo.',
       image_url: 'https://picsum.photos/800/600?random=3',
       author: 'Juan Deportes',
-      date: new Date(Date.now() - 3600000), // Hace 1 hora
+      date: new Date(Date.now() - 3600000),
     },
     {
       title: 'Ola de calor: Se esperan temperaturas récord',
       body: 'El servicio meteorológico ha emitido una alerta naranja. Se recomienda evitar la exposición al sol entre las 11 y las 16 horas.',
       image_url: 'https://picsum.photos/800/600?random=4',
       author: 'Clima 24h',
-      date: new Date(Date.now() - 172800000), // Anteayer
+      date: new Date(Date.now() - 172800000),
     },
     {
       title: 'Nuevas gafas de realidad mixta llegan al mercado',

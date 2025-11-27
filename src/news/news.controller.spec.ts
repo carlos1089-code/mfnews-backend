@@ -19,7 +19,7 @@ describe('NewsController', () => {
       providers: [
         {
           provide: NewsService,
-          useValue: mockNewsService, // Solo el mock, sin el servicio real
+          useValue: mockNewsService,
         },
       ],
     }).compile();

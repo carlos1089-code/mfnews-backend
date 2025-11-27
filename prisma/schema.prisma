@@ -11,9 +11,9 @@ model News {
   id          Int      @id @default(autoincrement())
   title       String
   body        String
-  image_url   String?  // El PDF dice guardar solo la URL [cite: 117]
+  image_url   String?  
   author      String
-  date        DateTime @default(now()) // Fecha de creación automática
+  date        DateTime @default(now())
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }
@@ -23,7 +23,7 @@ model User {
   email     String   @unique
   name      String
   password  String
-  role      String   @default("USER") // <--- AGREGA ESTA LÍNEA
+  role      String   @default("USER") 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 }

@@ -7,16 +7,14 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     PrismaModule,
-    // Configuración Global del JWT
     JwtModule.register({
       global: true,
-      // IMPORTANTE: Busca la variable de entorno, si no existe usa la frase fija
-      secret: process.env.JWT_SECRET || 'secreto_super_seguro',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
   ],
   controllers: [AuthController],
   providers: [AuthService],
-  exports: [AuthService, JwtModule], // Exportamos JwtModule para que otros módulos lo usen
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

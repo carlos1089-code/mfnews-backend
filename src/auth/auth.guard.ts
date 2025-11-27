@@ -34,14 +34,12 @@ export class AuthGuard implements CanActivate {
       });
       request['user'] = payload;
     } catch (error) {
-      // 👇 AGREGA ESTO PARA VER EL ERROR REAL 👇
-      console.log('🛑 ERROR EN EL GUARD:', error.message);
+      console.log(error);
       console.log('🔑 Token recibido:', token);
       console.log(
         '🔐 Secreto usado:',
         process.env.JWT_SECRET || 'secreto_super_seguro',
       );
-      // 👆 ----------------------------------- 👆
 
       throw new UnauthorizedException('Token inválido o expirado');
     }

@@ -6,7 +6,7 @@ import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
   imports: [AuthModule, PrismaModule],
-  controllers: [NewsController], //Esto es quien recibe la peticion (//!Esto lo creas y lo exportas en controllers)
-  providers: [NewsService], //Esto es quien tiene la logica de negocio
+  controllers: [NewsController],
+  providers: [NewsService],
 })
 export class NewsModule {}
