@@ -19,10 +19,11 @@ model News {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String // Guardaremos el hash, no la contraseña real
-  name     String
-  role     String @default("USER") // "ADMIN" o "USER"
-
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("USER") // <--- AGREGA ESTA LÍNEA
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -20,7 +20,6 @@ export class AuthService {
   ) {}
 
   // --- REGISTRO ---
-  // Cambiamos 'data: any' por 'RegisterDto' y prometemos retornar 'AuthResponseDto'
   async register(registerDto: RegisterDto): Promise<AuthResponseDto> {
     const { email, password, name } = registerDto;
 
@@ -35,7 +34,6 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // 3. Crear usuario
-    // Lógica MindFactory: Si es correo corporativo, es ADMIN
     const role = email.includes('@mindfactory.ar') ? 'ADMIN' : 'USER';
 
     const user = await this.prisma.user.create({
@@ -43,7 +41,7 @@ export class AuthService {
         name,
         email,
         password: hashedPassword,
-        role: role, // Asegúrate que tu schema.prisma tenga este campo o un enum
+        role: role,
       },
     });
 
@@ -53,14 +51,15 @@ export class AuthService {
       role: user.role,
     });
 
-    // 5. Retornar estructura exacta del AuthResponseDto
+    // 5. Retornar (CORREGIDO PARA TU FRONTEND)
     return {
-      access_token: token, // <--- CAMBIO CLAVE: debe coincidir con el DTO
+      token: token,
+      access_token: token, // Enviamos los dos por si acaso quieres arreglar el DTO luego
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        // Si tu DTO incluye 'role', agrégalo aquí también
+        role: user.role,
       },
     };
   }
@@ -69,29 +68,28 @@ export class AuthService {
   async login(loginDto: LoginDto): Promise<AuthResponseDto> {
     const { email, password } = loginDto;
 
-    // 1. Buscar usuario
     const user = await this.prisma.user.findUnique({
       where: { email },
     });
     if (!user) throw new UnauthorizedException('Credenciales inválidas');
 
-    // 2. Verificar contraseña
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw new UnauthorizedException('Credenciales inválidas');
 
-    // 3. Generar Token
     const token = await this.jwtService.signAsync({
       id: user.id,
       role: user.role,
     });
 
-    // 4. Retornar estructura
     return {
+      // @ts-ignore
+      token: token,
       access_token: token,
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
     };
   }
