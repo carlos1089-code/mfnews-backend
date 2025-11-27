@@ -7,12 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
-// 1. 👇 Definimos qué forma tiene lo que guardamos en el token
-// (Debe coincidir con lo que pusiste en AuthService al hacer el login)
 interface JwtPayload {
   id: number;
   role: string;
-  iat?: number; // 'iat' y 'exp' los agrega JWT automáticamente
+  iat?: number;
   exp?: number;
 }
 
@@ -32,12 +30,19 @@ export class AuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
-        secret: 'SECRET_KEY_SECRETA',
+        secret: process.env.JWT_SECRET || 'secreto_super_seguro',
       });
-
-      // 3. 👇 Ahora 'payload' ya no es 'any', es 'JwtPayload', así que es seguro asignarlo
       request['user'] = payload;
-    } catch {
+    } catch (error) {
+      // 👇 AGREGA ESTO PARA VER EL ERROR REAL 👇
+      console.log('🛑 ERROR EN EL GUARD:', error.message);
+      console.log('🔑 Token recibido:', token);
+      console.log(
+        '🔐 Secreto usado:',
+        process.env.JWT_SECRET || 'secreto_super_seguro',
+      );
+      // 👆 ----------------------------------- 👆
+
       throw new UnauthorizedException('Token inválido o expirado');
     }
     return true;

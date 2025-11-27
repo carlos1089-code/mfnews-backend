@@ -82,7 +82,7 @@ export class AuthService {
     });
 
     return {
-      // @ts-ignore
+      //ts-eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       token: token,
       access_token: token,
       user: {
