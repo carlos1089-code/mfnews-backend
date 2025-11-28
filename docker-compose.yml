@@ -35,13 +35,13 @@ services:
   # 3. Frontend React
   frontend:
     build:
-      context: ../mfnews-frontend
+      context: ../mfnews-frontend/mfnews-frontend
       dockerfile: Dockerfile
     container_name: mfnews_frontend
     ports:
       - '5173:5173'
     volumes:
-      - ../mfnews-frontend:/app
+      - ../mfnews-frontend/mfnews-frontend:/app
       - /app/node_modules
     environment:
       - VITE_API_URL=http://localhost:3000/api

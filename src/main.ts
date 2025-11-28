@@ -16,24 +16,19 @@ async function bootstrap() {
     }),
   );
 
-  // ✅ Configura Swagger ANTES del prefijo global
   const config = new DocumentBuilder()
     .setTitle('News API')
     .setDescription('Documentación de la API')
     .setVersion('1.0')
     .addServer('http://localhost:3000/api')
-    // 👇 CAMBIO IMPORTANTE AQUÍ
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Ingresa tu token JWT',
-        in: 'header',
-      },
-      // ❌ AQUÍ BORRÉ 'access-token'. Al no poner nada, se llama 'bearer' por defecto.
-    )
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'JWT',
+      description: 'Ingresa tu token JWT',
+      in: 'header',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
