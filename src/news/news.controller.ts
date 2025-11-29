@@ -25,9 +25,10 @@ import {
 import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('News')
+
 @Controller('news')
 export class NewsController {
-  constructor(private readonly newsService: NewsService) {}
+  constructor(private readonly newsService: NewsService) { }
 
   @Post()
   @UseGuards(AuthGuard)

@@ -6,8 +6,6 @@ import helmet from 'helmet'; // <--- 1. IMPORTAR HELMET
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  // <--- 2. ACTIVAR HELMET (Justo aquí al principio)
   app.use(helmet());
 
   app.enableCors();
@@ -20,8 +18,7 @@ async function bootstrap() {
     }),
   );
 
-  // ... el resto de tu código de Swagger sigue igual ...
-  
+
   const config = new DocumentBuilder()
     .setTitle('News API')
     .setDescription('Documentación de la API')

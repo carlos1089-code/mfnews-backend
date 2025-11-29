@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class NewsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
   // --- CREAR ---
   async create(createNewsDto: CreateNewsDto) {
     return await this.prisma.news.create({
@@ -17,11 +17,11 @@ export class NewsService {
   async findAll(search?: string) {
     const whereConfig = search
       ? {
-          OR: [
-            { title: { contains: search, mode: 'insensitive' as const } },
-            { author: { contains: search, mode: 'insensitive' as const } },
-          ],
-        }
+        OR: [
+          { title: { contains: search, mode: 'insensitive' as const } },
+          { author: { contains: search, mode: 'insensitive' as const } },
+        ],
+      }
       : {};
 
     return await this.prisma.news.findMany({
