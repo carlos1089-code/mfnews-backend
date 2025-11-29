@@ -2,9 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet'; // <--- 1. IMPORTAR HELMET
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // <--- 2. ACTIVAR HELMET (Justo aquí al principio)
+  app.use(helmet());
 
   app.enableCors();
 
@@ -16,6 +20,8 @@ async function bootstrap() {
     }),
   );
 
+  // ... el resto de tu código de Swagger sigue igual ...
+  
   const config = new DocumentBuilder()
     .setTitle('News API')
     .setDescription('Documentación de la API')
@@ -38,7 +44,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
-  // ⭐ El prefijo global sigue igual
   app.setGlobalPrefix('api', {
     exclude: ['docs'],
   });
