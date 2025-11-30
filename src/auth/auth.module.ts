@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
     PrismaModule,
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET || 'super-secret-key',
       signOptions: { expiresIn: '1d' },
     }),
   ],
@@ -17,4 +17,4 @@ import { JwtModule } from '@nestjs/jwt';
   providers: [AuthService],
   exports: [AuthService, JwtModule],
 })
-export class AuthModule {}
+export class AuthModule { }
