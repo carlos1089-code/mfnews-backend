@@ -193,6 +193,7 @@ Representa las noticias publicadas en la plataforma.
 | :----------- | :------- | :----------------------------------------------- |
 | `id`         | Int      | Identificador único (Autoincremental)            |
 | `title`      | String   | Título de la noticia                             |
+| `subtitle`   | String?  | Subtítulo o resumen breve (Opcional)             |
 | `body`       | String   | Contenido principal de la noticia                |
 | `image_url`  | String?  | URL de la imagen destacada (Opcional)            |
 | `author`     | String   | Nombre del autor de la noticia                   |

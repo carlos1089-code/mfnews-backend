@@ -39,6 +39,7 @@ async function main() {
   const newsData = [
     {
       title: 'SpaceX logra un aterrizaje histórico',
+      subtitle: 'Éxito rotundo en la quinta prueba de vuelo',
       body: 'En un hito sin precedentes para la ingeniería aeroespacial, la compañía logró capturar el propulsor en el aire utilizando los brazos mecánicos de la torre de lanzamiento.',
       image_url: 'https://picsum.photos/800/600?random=1',
       author: 'Carlos Nayi',
@@ -46,6 +47,7 @@ async function main() {
     },
     {
       title: 'El Banco Central anuncia nuevas tasas de interés',
+      subtitle: 'Medidas económicas para combatir la inflación',
       body: 'Tras conocerse el último índice de inflación, la entidad monetaria ha decidido ajustar la tasa de referencia. Los analistas advierten sobre el impacto en el consumo.',
       image_url: 'https://picsum.photos/800/600?random=2',
       author: 'Ana Economía',
@@ -53,6 +55,7 @@ async function main() {
     },
     {
       title: 'Final electrizante en el torneo local',
+      subtitle: 'Polémica y goles en un partido inolvidable',
       body: 'El partido terminó con goles en los últimos minutos. La polémica del VAR fue la protagonista de la noche, anulando un gol decisivo.',
       image_url: 'https://picsum.photos/800/600?random=3',
       author: 'Juan Deportes',
@@ -60,6 +63,7 @@ async function main() {
     },
     {
       title: 'Ola de calor: Se esperan temperaturas récord',
+      subtitle: 'Alerta naranja en gran parte del país',
       body: 'El servicio meteorológico ha emitido una alerta naranja. Se recomienda evitar la exposición al sol entre las 11 y las 16 horas.',
       image_url: 'https://picsum.photos/800/600?random=4',
       author: 'Clima 24h',
@@ -67,6 +71,7 @@ async function main() {
     },
     {
       title: 'Nuevas gafas de realidad mixta llegan al mercado',
+      subtitle: 'Tecnología inmersiva a un precio más accesible',
       body: 'La compañía busca masificar la computación espacial con un modelo más accesible, eliminando funciones pro para reducir el precio.',
       image_url: 'https://picsum.photos/800/600?random=5',
       author: 'Tech Reviewer',
@@ -74,6 +79,7 @@ async function main() {
     },
     {
       title: 'Descubren ruinas antiguas en la selva',
+      subtitle: 'Hallazgo arqueológico revela civilización perdida',
       body: 'Utilizando tecnología láser, arqueólogos han mapeado una extensa red de asentami',
       image_url: 'https://picsum.photos/800/600?random=6',
       author: 'National Geo',
@@ -81,6 +87,7 @@ async function main() {
     },
     {
       title: 'El auge del café de especialidad',
+      subtitle: 'La cultura del café transforma el consumo local',
       body: 'Cada vez más cafeterías ofrecen granos de origen único. Expertos aseguran que el paladar del consumidor ha evolucionado notablemente.',
       image_url: 'https://picsum.photos/800/600?random=7',
       author: 'Barista Pro',
@@ -88,6 +95,7 @@ async function main() {
     },
     {
       title: 'Arquitectura sustentable: Casas 3D',
+      subtitle: 'Innovación en la construcción de viviendas',
       body: 'Una startup está construyendo barrios enteros utilizando hormigón bajo en carbono y robots gigantes de impresión.',
       image_url: 'https://picsum.photos/800/600?random=8',
       author: 'Arq. Pérez',

@@ -50,7 +50,7 @@ describe('NewsController', () => {
     it('debería devolver un array de noticias', async () => {
       // A. PREPARAR (Arrange)
       const resultEsperado = [
-        { id: 1, title: 'Noticia de Prueba', author: 'Carlos', body: 'Contenido' },
+        { id: 1, title: 'Noticia de Prueba', subtitle: 'Subtítulo de prueba', author: 'Carlos', body: 'Contenido' },
       ];
 
       jest.spyOn(mockNewsService, 'findAll').mockResolvedValue(resultEsperado);
@@ -87,7 +87,7 @@ describe('NewsController', () => {
 
   describe('create', () => {
     it('debería crear una nueva noticia', async () => {
-      const createDto = { title: 'Nueva', body: 'Contenido', author: 'Carlos' };
+      const createDto = { title: 'Nueva', subtitle: 'Subtítulo nuevo', body: 'Contenido', author: 'Carlos' };
       const mockCreated = { id: 1, ...createDto };
       mockNewsService.create.mockResolvedValue(mockCreated);
 

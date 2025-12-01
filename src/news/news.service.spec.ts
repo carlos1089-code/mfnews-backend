@@ -42,8 +42,8 @@ describe('NewsService', () => {
   describe('findAll', () => {
     it('debería retornar todas las noticias ordenadas por fecha', async () => {
       const mockNoticias = [
-        { id: 1, title: 'Noticia 1', author: 'Carlos', body: 'Contenido 1', date: new Date() },
-        { id: 2, title: 'Noticia 2', author: 'Ana', body: 'Contenido 2', date: new Date() },
+        { id: 1, title: 'Noticia 1', subtitle: 'Subtítulo 1', author: 'Carlos', body: 'Contenido 1', date: new Date() },
+        { id: 2, title: 'Noticia 2', subtitle: 'Subtítulo 2', author: 'Ana', body: 'Contenido 2', date: new Date() },
       ];
 
       mockPrismaService.news.findMany.mockResolvedValue(mockNoticias);
@@ -80,6 +80,7 @@ describe('NewsService', () => {
       const mockNoticia = {
         id: 1,
         title: 'Noticia Test',
+        subtitle: 'Subtítulo Test',
         author: 'Carlos',
         body: 'Contenido',
         date: new Date(),
@@ -109,6 +110,7 @@ describe('NewsService', () => {
     it('debería crear una noticia correctamente', async () => {
       const createDto = {
         title: 'Nueva Noticia',
+        subtitle: 'Subtítulo de prueba',
         body: 'Contenido de prueba',
         author: 'Carlos',
       };
