@@ -21,6 +21,143 @@ API RESTful desarrollada con **NestJS** y **TypeScript** para la gestión de not
 
 ---
 
+## 🚀 Instalación y Configuración
+
+### Prerrequisitos
+
+Antes de comenzar, asegúrate de tener instalado:
+
+*   **Node.js** (v18 o superior) - [Descargar](https://nodejs.org/)
+*   **npm** (v9 o superior) - Incluido con Node.js
+*   **Docker** y **Docker Compose** - [Descargar](https://www.docker.com/get-started)
+*   **Git** - [Descargar](https://git-scm.com/)
+
+### 1️⃣ Clonar el Repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd mfnews-backend
+```
+
+### 2️⃣ Instalar Dependencias
+
+```bash
+npm install
+```
+
+### 3️⃣ Configurar Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+
+```env
+# Base de Datos (para desarrollo local)
+DATABASE_URL="postgresql://admin:contraseña123@localhost:5432/mfnews?schema=public"
+
+# JWT Secret (cambia esto en producción)
+JWT_SECRET="tu-secreto-super-seguro-aqui"
+```
+
+> [!IMPORTANT]
+> El `DATABASE_URL` debe apuntar a `localhost:5432` cuando ejecutes la base de datos con Docker y la aplicación localmente con npm.
+
+### 4️⃣ Iniciar la Base de Datos con Docker
+
+La base de datos PostgreSQL se ejecuta en un contenedor Docker **separado** de la aplicación:
+
+```bash
+# Iniciar solo el contenedor de la base de datos
+docker-compose up db -d
+```
+
+Este comando:
+- ✅ Descarga la imagen de PostgreSQL 16 (si no existe)
+- ✅ Crea un contenedor llamado `mfnews_db`
+- ✅ Expone el puerto `5432` en tu máquina local
+- ✅ Persiste los datos en un volumen Docker
+
+Para verificar que la base de datos está corriendo:
+
+```bash
+docker ps
+```
+
+Deberías ver el contenedor `mfnews_db` en estado `Up`.
+
+### 5️⃣ Ejecutar Migraciones de Prisma
+
+Una vez que la base de datos esté corriendo, ejecuta las migraciones para crear las tablas:
+
+```bash
+npx prisma migrate dev
+```
+
+Opcionalmente, puedes poblar la base de datos con datos de prueba:
+
+```bash
+npx prisma db seed
+```
+
+### 6️⃣ Iniciar la Aplicación Backend
+
+Con la base de datos corriendo en Docker, inicia el servidor NestJS **localmente**:
+
+```bash
+# Modo desarrollo (con hot-reload)
+npm run start:dev
+
+# O modo producción
+npm run start
+```
+
+La API estará disponible en: **http://localhost:3000**
+
+### 7️⃣ Acceder a la Documentación Swagger
+
+Una vez que el servidor esté corriendo, accede a la documentación interactiva en:
+
+**🔗 http://localhost:3000/api**
+
+---
+
+## 🐳 Alternativa: Ejecutar Todo con Docker Compose
+
+Si prefieres ejecutar **tanto la base de datos como el backend** en contenedores Docker:
+
+```bash
+# Iniciar todos los servicios (DB + Backend)
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f backend
+
+# Detener todos los servicios
+docker-compose down
+```
+
+> [!NOTE]
+> Esta opción es útil para producción o para replicar el entorno completo sin instalar Node.js localmente.
+
+---
+
+## 🛑 Detener los Servicios
+
+### Detener solo la base de datos:
+```bash
+docker-compose down db
+```
+
+### Detener todos los servicios:
+```bash
+docker-compose down
+```
+
+### Detener y eliminar volúmenes (⚠️ elimina los datos):
+```bash
+docker-compose down -v
+```
+
+---
+
 ## 📂 Estructura del Proyecto
 
 ```bash
@@ -68,8 +205,16 @@ Representa las noticias publicadas en la plataforma.
 ## 📚 Documentación API (Swagger)
 
 La API cuenta con documentación interactiva generada automáticamente con Swagger.
+
+**Acceso:** Una vez iniciado el servidor, visita [http://localhost:3000/api](http://localhost:3000/api)
+
+---
+
+## 🔧 Scripts Disponibles
+
 | Comando | Descripción |
 | :--- | :--- |
+| `npm run start` | Inicia el servidor en modo producción. |
 | `npm run start:dev` | Inicia el servidor en modo desarrollo (Watch Mode). |
 | `npm run build` | Compila la aplicación para producción en la carpeta `/dist`. |
 | `npm run lint` | Ejecuta ESLint para analizar y arreglar problemas de código. |
