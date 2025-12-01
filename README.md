@@ -47,18 +47,10 @@ npm install
 
 ### 3️⃣ Configurar Variables de Entorno
 
-Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
-
-```env
-# Base de Datos (para desarrollo local)
-DATABASE_URL="postgresql://admin:contraseña123@localhost:5432/mfnews?schema=public"
-
-# JWT Secret (cambia esto en producción)
-JWT_SECRET="tu-secreto-super-seguro-aqui"
-```
+Crea un archivo `.env` en la raíz del proyecto. Las variables de entorno requeridas han sido compartidas de forma privada y segura.
 
 > [!IMPORTANT]
-> El `DATABASE_URL` debe apuntar a `localhost:5432` cuando ejecutes la base de datos con Docker y la aplicación localmente con npm.
+> No subas el archivo `.env` al repositorio. Este archivo contiene información sensible como credenciales de base de datos y secretos JWT.
 
 ### 4️⃣ Iniciar la Base de Datos con Docker
 
