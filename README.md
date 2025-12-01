@@ -115,7 +115,7 @@ La API estará disponible en: **http://localhost:3000**
 
 Una vez que el servidor esté corriendo, accede a la documentación interactiva en:
 
-**🔗 http://localhost:3000/api**
+**🔗 http://localhost:3000/docs**
 
 ---
 
