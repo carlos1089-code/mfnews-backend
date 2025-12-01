@@ -4,20 +4,20 @@ API RESTful desarrollada con **NestJS** y **TypeScript** para la gestión de not
 
 ## 🛠️ Tech Stack
 
-*   **Framework:** [NestJS](https://nestjs.com/) (Node.js)
-*   **Base de Datos:** PostgreSQL 16
-*   **ORM:** [Prisma](https://www.prisma.io/)
-*   **Contenedorización:** Docker & Docker Compose
-*   **Seguridad:** Helmet, Rate Limiting (Throttler), JWT Auth, BCrypt
-*   **Documentación:** Swagger (OpenAPI)
+- **Framework:** [NestJS](https://nestjs.com/) (Node.js)
+- **Base de Datos:** PostgreSQL 16
+- **ORM:** [Prisma](https://www.prisma.io/)
+- **Contenedorización:** Docker & Docker Compose
+- **Seguridad:** Helmet, Rate Limiting (Throttler), JWT Auth, BCrypt
+- **Documentación:** Swagger (OpenAPI)
 
 ## ✨ Características Principales
 
-*   **Arquitectura Modular:** Separación clara de dominios (`Auth`, `News`, `Prisma`, `Common`).
-*   **Validación Robusta:** Uso de DTOs con `class-validator` y `class-transformer` para sanitizar entradas.
-*   **Seguridad Enterprise:** Headers HTTP seguros con Helmet, protección contra fuerza bruta con Rate Limiting y autenticación vía JWT.
-*   **Búsqueda Optimizada:** Implementación de filtros de texto `insensitive` y paginación eficiente.
-*   **Docker Ready:** Configuración lista para levantar el entorno completo (DB + API) con un solo comando.
+- **Arquitectura Modular:** Separación clara de dominios (`Auth`, `News`, `Prisma`, `Common`).
+- **Validación Robusta:** Uso de DTOs con `class-validator` y `class-transformer` para sanitizar entradas.
+- **Seguridad Enterprise:** Headers HTTP seguros con Helmet, protección contra fuerza bruta con Rate Limiting y autenticación vía JWT.
+- **Búsqueda Optimizada:** Implementación de filtros de texto `insensitive` y paginación eficiente.
+- **Docker Ready:** Configuración lista para levantar el entorno completo (DB + API) con un solo comando.
 
 ---
 
@@ -27,10 +27,10 @@ API RESTful desarrollada con **NestJS** y **TypeScript** para la gestión de not
 
 Antes de comenzar, asegúrate de tener instalado:
 
-*   **Node.js** (v18 o superior) - [Descargar](https://nodejs.org/)
-*   **npm** (v9 o superior) - Incluido con Node.js
-*   **Docker** y **Docker Compose** - [Descargar](https://www.docker.com/get-started)
-*   **Git** - [Descargar](https://git-scm.com/)
+- **Node.js** (v18 o superior) - [Descargar](https://nodejs.org/)
+- **npm** (v9 o superior) - Incluido con Node.js
+- **Docker** y **Docker Compose** - [Descargar](https://www.docker.com/get-started)
+- **Git** - [Descargar](https://git-scm.com/)
 
 ### 1️⃣ Clonar el Repositorio
 
@@ -49,8 +49,7 @@ npm install
 
 Crea un archivo `.env` en la raíz del proyecto. Las variables de entorno requeridas han sido compartidas de forma privada y segura.
 
-> [!IMPORTANT]
-> No subas el archivo `.env` al repositorio. Este archivo contiene información sensible como credenciales de base de datos y secretos JWT.
+Estas se las envio a gino por slack
 
 ### 4️⃣ Iniciar la Base de Datos con Docker
 
@@ -62,6 +61,7 @@ docker-compose up db -d
 ```
 
 Este comando:
+
 - ✅ Descarga la imagen de PostgreSQL 16 (si no existe)
 - ✅ Crea un contenedor llamado `mfnews_db`
 - ✅ Expone el puerto `5432` en tu máquina local
@@ -134,16 +134,19 @@ docker-compose down
 ## 🛑 Detener los Servicios
 
 ### Detener solo la base de datos:
+
 ```bash
 docker-compose down db
 ```
 
 ### Detener todos los servicios:
+
 ```bash
 docker-compose down
 ```
 
 ### Detener y eliminar volúmenes (⚠️ elimina los datos):
+
 ```bash
 docker-compose down -v
 ```
@@ -166,32 +169,34 @@ src/
 ## 🗄️ Modelo de Datos (Entidades)
 
 ### 👤 User
+
 Representa a los usuarios del sistema (Administradores o Lectores).
 
-| Campo       | Tipo     | Descripción                                      |
-| :---------- | :------- | :----------------------------------------------- |
-| `id`        | Int      | Identificador único (Autoincremental)            |
-| `email`     | String   | Correo electrónico (Único)                       |
-| `name`      | String   | Nombre completo del usuario                      |
-| `password`  | String   | Contraseña hasheada (BCrypt)                     |
-| `role`      | String   | Rol del usuario (Default: "USER")                |
-| `createdAt` | DateTime | Fecha de creación                                |
-| `updatedAt` | DateTime | Fecha de última actualización                    |
+| Campo       | Tipo     | Descripción                           |
+| :---------- | :------- | :------------------------------------ |
+| `id`        | Int      | Identificador único (Autoincremental) |
+| `email`     | String   | Correo electrónico (Único)            |
+| `name`      | String   | Nombre completo del usuario           |
+| `password`  | String   | Contraseña hasheada (BCrypt)          |
+| `role`      | String   | Rol del usuario (Default: "USER")     |
+| `createdAt` | DateTime | Fecha de creación                     |
+| `updatedAt` | DateTime | Fecha de última actualización         |
 
 ### 📰 News
+
 Representa las noticias publicadas en la plataforma.
 
-| Campo        | Tipo     | Descripción                                      |
-| :----------- | :------- | :----------------------------------------------- |
-| `id`         | Int      | Identificador único (Autoincremental)            |
-| `title`      | String   | Título de la noticia                             |
-| `subtitle`   | String?  | Subtítulo o resumen breve (Opcional)             |
-| `body`       | String   | Contenido principal de la noticia                |
-| `image_url`  | String?  | URL de la imagen destacada (Opcional)            |
-| `author`     | String   | Nombre del autor de la noticia                   |
-| `date`       | DateTime | Fecha de publicación (Default: Ahora)            |
-| `created_at` | DateTime | Fecha de creación del registro                   |
-| `updated_at` | DateTime | Fecha de última actualización                    |
+| Campo        | Tipo     | Descripción                           |
+| :----------- | :------- | :------------------------------------ |
+| `id`         | Int      | Identificador único (Autoincremental) |
+| `title`      | String   | Título de la noticia                  |
+| `subtitle`   | String?  | Subtítulo o resumen breve (Opcional)  |
+| `body`       | String   | Contenido principal de la noticia     |
+| `image_url`  | String?  | URL de la imagen destacada (Opcional) |
+| `author`     | String   | Nombre del autor de la noticia        |
+| `date`       | DateTime | Fecha de publicación (Default: Ahora) |
+| `created_at` | DateTime | Fecha de creación del registro        |
+| `updated_at` | DateTime | Fecha de última actualización         |
 
 ---
 
@@ -205,13 +210,13 @@ La API cuenta con documentación interactiva generada automáticamente con Swagg
 
 ## 🔧 Scripts Disponibles
 
-| Comando | Descripción |
-| :--- | :--- |
-| `npm run start` | Inicia el servidor en modo producción. |
-| `npm run start:dev` | Inicia el servidor en modo desarrollo (Watch Mode). |
-| `npm run build` | Compila la aplicación para producción en la carpeta `/dist`. |
-| `npm run lint` | Ejecuta ESLint para analizar y arreglar problemas de código. |
-| `npm run format` | Formatea el código usando Prettier. |
+| Comando             | Descripción                                                  |
+| :------------------ | :----------------------------------------------------------- |
+| `npm run start`     | Inicia el servidor en modo producción.                       |
+| `npm run start:dev` | Inicia el servidor en modo desarrollo (Watch Mode).          |
+| `npm run build`     | Compila la aplicación para producción en la carpeta `/dist`. |
+| `npm run lint`      | Ejecuta ESLint para analizar y arreglar problemas de código. |
+| `npm run format`    | Formatea el código usando Prettier.                          |
 
 ---
 
@@ -220,6 +225,7 @@ La API cuenta con documentación interactiva generada automáticamente con Swagg
 El proyecto utiliza **Jest** para ejecutar las pruebas.
 
 ### Ejecución con Docker (Recomendado)
+
 ```bash
 # Tests Unitarios
 docker-compose exec backend npm run test
@@ -229,6 +235,7 @@ docker-compose exec backend npm run test:cov
 ```
 
 ### Ejecución Local
+
 ```bash
 npm run test
 npm run test:cov
