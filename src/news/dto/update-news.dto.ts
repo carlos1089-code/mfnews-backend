@@ -10,7 +10,17 @@ export class UpdateNewsDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
+  @IsOptional()
   title?: string;
+
+  @ApiProperty({
+    description: 'Subtítulo o resumen breve de la noticia',
+    example: 'La misión Starship 25 alcanzó la órbita terrestre',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  subtitle?: string;
 
   @ApiProperty({
     description: 'El contenido completo de la noticia',
